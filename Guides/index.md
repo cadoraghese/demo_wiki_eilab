@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Guides Debug
+title: Guides Category Debug
 ---
 
-# Guides Debug Mode
+# Guides Category Debug
 
-<p>The build log shows an error when sorting pages by title. This page will list every file that Jekyll is trying to sort, and will point out the one that is missing a title.</p>
+<p>This page will show the raw list of directory names being collected right before the sort filter that is causing the error.</p>
 
 <hr>
 
-<h2>Files being processed in the 'Guides' folder:</h2>
+{% assign directories = "" | split: "" %}
+{% for page in site.pages %}
+  {% if page.path | startswith: 'Guides/' %}
+    {% if page.dir != '/Guides/' %}
+      {% assign subdir_name = page.dir | remove_first: '/Guides/' | split: '/' | first %}
+      {% assign directories = directories | push: subdir_name %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
 
-<ol>
-  {% assign files_to_debug = site.pages | where_exp: "item", "item.dir == '/Guides/'" | where_exp: "item", "item.name != 'index.md'" %}
-  {% for file in files_to_debug %}
-    <li>
-      <strong>File Path:</strong> <code>{{ file.path }}</code><br>
-      <strong>File Name:</strong> <code>{{ file.name }}</code><br>
-      <strong>Extracted Title:</strong> <code>{{ file.title | default: "NIL! <-- THIS IS THE PROBLEM FILE" }}</code>
-    </li>
-  {% endfor %}
-</ol>
+<p><strong>Raw 'directories' array before `uniq` and `sort`:</strong></p>
+<pre><code>{{ directories | inspect }}</code></pre>
