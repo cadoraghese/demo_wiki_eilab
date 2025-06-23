@@ -24,3 +24,4 @@ url: "https://cadoraghese.github.io" # the base hostname & protocol for your sit
 theme: jekyll-theme-minimal
 plugins:
   - jekyll-feed
+  - jekyll-github-metadata
