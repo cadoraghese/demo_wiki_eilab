@@ -32,18 +32,17 @@ Browse by category or view individual guides available at this level.
 
 ---
 
-## Top-Level Guides
+---
 
-<ul>
-  {% comment %}
-    The line below has been updated. We've added a filter:
-    'where_exp: "item", "item.title"'
-    This safely removes any pages that are missing a title BEFORE attempting to sort.
-  {% endcomment %}
-  {% assign files = site.pages | where_exp: "item", "item.dir == '/Guides/'" | where_exp: "item", "item.name != 'index.md'" | where_exp: "item", "item.title" | sort: "title" %}
-  {% for file in files %}
+## Top-Level Guides (DEBUG MODE)
+
+<p><strong>Finding the file with no title...</strong></p>
+<ol>
+  {% assign files_to_debug = site.pages | where_exp: "item", "item.dir == '/Guides/'" | where_exp: "item", "item.name != 'index.md'" %}
+  {% for file in files_to_debug %}
     <li>
-      <h3>📄 <a href="{{ file.url | relative_url }}">{{ file.title }}</a></h3>
+      <strong>File Path:</strong> <code>{{ file.path }}</code><br>
+      <strong>Title:</strong> <code>{{ file.title | default: "NIL! <-- THIS IS THE PROBLEM FILE" }}</code>
     </li>
   {% endfor %}
-</ul>
+</ol>
