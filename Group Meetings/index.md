@@ -19,14 +19,4 @@ Here is a list of all Group Meetings, with the most recent first.
       <h3><a href="{{ group_meeting.url | relative_url }}">{{ group_meeting.title }}</a></h3>
     </li>
   {% endfor %}
-<p><strong>--- DEBUG START ---</strong></p>
-<pre><code>
-All pages containing "Group Meetings" in their path:
-{% for page in site.pages %}
-  {% if page.path contains "Group Meetings" %}
-  - Path: {{ page.path }} | Directory: {{ page.dir }}
-  {% endif %}
-{% endfor %}
-</code></pre>
-<p><strong>--- DEBUG END ---</strong></p>
 </ul>
