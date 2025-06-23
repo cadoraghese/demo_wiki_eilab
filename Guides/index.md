@@ -1,22 +1,54 @@
 ---
 layout: default
-title: All Guides
+title: Guides
 ---
 
-# All Guides
+# Guides
 
-Here is a list of all available guides, sorted alphabetically by title.
+Browse by category or view individual guides available at this level.
+
+## Categories
 
 <ul>
   {% comment %}
-    This code finds all pages within the 'Guides/' folder and any subfolders.
-    It excludes this index page itself.
-    Then, it sorts the results alphabetically based on the page's title.
+    Part 1: Find all unique subdirectories inside the top-level 'Guides/' folder.
   {% endcomment %}
-  {% assign guides = site.pages | where_exp: "item", "item.path contains 'Guides/'" | where_exp: "item", "item.name != 'index.md'" | sort: "title" %}
-  {% for guide in guides %}
+  {% assign directories = "" | split: "" %}
+  {% for page in site.pages %}
+    {% comment %}
+      This 'if' statement is the crucial part. 
+      'page.path startswith 'Guides/'' ensures we ONLY look in the root /Guides folder.
+      It will ignore a path like 'Old-Projects/Guides/'.
+    {% endcomment %}
+    {% if page.path startswith 'Guides/' and page.dir != '/Guides/' %}
+      {% assign subdir_name = page.dir | remove_first: '/Guides/' | split: '/' | first %}
+      {% assign directories = directories | push: subdir_name %}
+    {% endif %}
+  {% endfor %}
+  
+  {% assign unique_directories = directories | uniq | sort %}
+  
+  {% for dir in unique_directories %}
     <li>
-      <h3><a href="{{ guide.url | relative_url }}">{{ guide.title }}</a></h3>
+      <h3>📂 <a href="{{ site.baseurl }}/Guides/{{ dir }}/">{{ dir | capitalize }}</a></h3>
+      <p>Guides related to {{ dir | capitalize }}.</p>
+    </li>
+  {% endfor %}
+</ul>
+
+---
+
+## Top-Level Guides
+
+<ul>
+  {% comment %}
+    Part 2: This section was already correct because 'item.dir == "/Guides/"' is very specific
+    and only matches the top-level directory. No changes are needed here.
+  {% endcomment %}
+  {% assign files = site.pages | where_exp: "item", "item.dir == '/Guides/'" | where_exp: "item", "item.name != 'index.md'" | sort: "title" %}
+  {% for file in files %}
+    <li>
+      <h3>📄 <a href="{{ file.url | relative_url }}">{{ file.title }}</a></h3>
     </li>
   {% endfor %}
 </ul>
