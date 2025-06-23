@@ -10,15 +10,8 @@ Browse by category or view individual guides available at this level.
 ## Categories
 
 <ul>
-  {% comment %}
-    Part 1: Find all unique subdirectories inside the top-level 'Guides/' folder.
-  {% endcomment %}
   {% assign directories = "" | split: "" %}
   {% for page in site.pages %}
-    {% comment %}
-      The 'if' statement below was changed to use the 'startswith' FILTER
-      instead of the 'startswith' OPERATOR for better Jekyll compatibility.
-    {% endcomment %}
     {% if page.path | startswith: 'Guides/' %}
       {% if page.dir != '/Guides/' %}
         {% assign subdir_name = page.dir | remove_first: '/Guides/' | split: '/' | first %}
@@ -43,9 +36,11 @@ Browse by category or view individual guides available at this level.
 
 <ul>
   {% comment %}
-    Part 2: This section finds pages only in the top-level /Guides/ directory.
+    The line below has been updated. We've added a filter:
+    'where_exp: "item", "item.title"'
+    This safely removes any pages that are missing a title BEFORE attempting to sort.
   {% endcomment %}
-  {% assign files = site.pages | where_exp: "item", "item.dir == '/Guides/'" | where_exp: "item", "item.name != 'index.md'" | sort: "title" %}
+  {% assign files = site.pages | where_exp: "item", "item.dir == '/Guides/'" | where_exp: "item", "item.name != 'index.md'" | where_exp: "item", "item.title" | sort: "title" %}
   {% for file in files %}
     <li>
       <h3>📄 <a href="{{ file.url | relative_url }}">{{ file.title }}</a></h3>
