@@ -16,10 +16,8 @@ Browse by category or view individual guides available at this level.
   {% assign directories = "" | split: "" %}
   {% for page in site.pages %}
     {% comment %}
-      This 'if' statement has been changed to use the 'startswith' FILTER.
-      This is more compatible than using the 'startswith' OPERATOR.
-      OLD (Not working): {% if page.path startswith 'Guides/' %}
-      NEW (Compatible): {% if page.path | startswith: 'Guides/' %}
+      The 'if' statement below was changed to use the 'startswith' FILTER
+      instead of the 'startswith' OPERATOR for better Jekyll compatibility.
     {% endcomment %}
     {% if page.path | startswith: 'Guides/' %}
       {% if page.dir != '/Guides/' %}
@@ -45,7 +43,7 @@ Browse by category or view individual guides available at this level.
 
 <ul>
   {% comment %}
-    This part of the code was already using a compatible method and does not need to be changed.
+    Part 2: This section finds pages only in the top-level /Guides/ directory.
   {% endcomment %}
   {% assign files = site.pages | where_exp: "item", "item.dir == '/Guides/'" | where_exp: "item", "item.name != 'index.md'" | sort: "title" %}
   {% for file in files %}
