@@ -6,4 +6,9 @@
     <a href="#">Useful Internal Info</a>
     <a href="{{ "/Guides" | relative_url }}">Guides</a>
   </nav>
+  {% if site.github.edit_url %}
+    <p class="edit-link">
+      <a href="{{ site.github.edit_url }}" target="_blank">Edit this page on GitHub</a>
+    </p>
+  {% endif %}
 </header>
