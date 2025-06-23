@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <title>{{ page.title | default: "Wiki" }}</title>
   <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}" />
+  <style>
+    main {
+      max-width: 800px;   /* limits width */
+      margin: 0 auto;     /* centers horizontally */
+      padding: 1em;
+    }
+  </style>
 </head>
 <body>
   <header>
