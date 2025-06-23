@@ -5,8 +5,6 @@
     <a href="#">Templates</a>
     <a href="#">Useful Internal Info</a>
     <a href="{{ "/Guides" | relative_url }}">Guides</a>
-    <a href="#">Edit this page on GitHub</a>
-    <a href="https://github.com/{{ site.organization }}{{ site.baseurl }}/edit/main/{{ page.path }}">Edit this page on GitHub</a>
-    <a href="{{ site.github.edit_url }}" target="_blank">Edit this page on GitHub</a>
+    <a class="edit-link" href="https://github.com/{{ site.organization }}{{ site.baseurl }}/edit/main/{{ page.path }}" target="_blank">Edit this page on GitHub</a>
   </nav>
 </header>
