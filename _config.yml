@@ -19,7 +19,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   A collaborative wiki for the EILab.
 baseurl: "/demo_wiki_eilab" # the subpath of your site, e.g. /blog
 url: "https://cadoraghese.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-
+organization: "cadoraghese"
 # Build settings
 theme: jekyll-theme-minimal
 plugins:
