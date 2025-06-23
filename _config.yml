@@ -1,0 +1,22 @@
+title: EILab Wiki
+description: Internal documentation and guides
+baseurl: "/demo_wiki_eilab"  # ← replace this with your actual repo name
+url: "https://cadoraghese.github.io"  # ← replace with your GitHub username
+
+markdown: kramdown
+theme: minima
+
+# Optional: Exclude folders/files from the build
+exclude:
+  - README.md
+  - node_modules
+  - Gemfile
+  - Gemfile.lock
+
+# Optional: Defaults for markdown files
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: default
