@@ -16,13 +16,16 @@ Browse by category or view individual guides available at this level.
   {% assign directories = "" | split: "" %}
   {% for page in site.pages %}
     {% comment %}
-      This 'if' statement is the crucial part. 
-      'page.path startswith 'Guides/'' ensures we ONLY look in the root /Guides folder.
-      It will ignore a path like 'Old-Projects/Guides/'.
+      This 'if' statement has been changed to use the 'startswith' FILTER.
+      This is more compatible than using the 'startswith' OPERATOR.
+      OLD (Not working): {% if page.path startswith 'Guides/' %}
+      NEW (Compatible): {% if page.path | startswith: 'Guides/' %}
     {% endcomment %}
-    {% if page.path startswith 'Guides/' and page.dir != '/Guides/' %}
-      {% assign subdir_name = page.dir | remove_first: '/Guides/' | split: '/' | first %}
-      {% assign directories = directories | push: subdir_name %}
+    {% if page.path | startswith: 'Guides/' %}
+      {% if page.dir != '/Guides/' %}
+        {% assign subdir_name = page.dir | remove_first: '/Guides/' | split: '/' | first %}
+        {% assign directories = directories | push: subdir_name %}
+      {% endif %}
     {% endif %}
   {% endfor %}
   
@@ -42,8 +45,7 @@ Browse by category or view individual guides available at this level.
 
 <ul>
   {% comment %}
-    Part 2: This section was already correct because 'item.dir == "/Guides/"' is very specific
-    and only matches the top-level directory. No changes are needed here.
+    This part of the code was already using a compatible method and does not need to be changed.
   {% endcomment %}
   {% assign files = site.pages | where_exp: "item", "item.dir == '/Guides/'" | where_exp: "item", "item.name != 'index.md'" | sort: "title" %}
   {% for file in files %}
